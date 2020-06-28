@@ -24,10 +24,14 @@
 <body>
     <!-- nav -->
     <nav>
-        <div class="nav-wrapper">
+        <div class="nav-wrapper indigo darken-3">
             <a href="#" class="brand-logo">wallet.io</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="sass.html">Login</a></li>
+                {% if request.user.is_authenticated %}
+                    <li><a href="/user_logout/">Logout</a></li>
+                {% else %}
+                    <li><a href="/user_auth/">Login</a></li>
+                {% endif %}
             </ul>
         </div>
     </nav>

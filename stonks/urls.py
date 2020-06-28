@@ -13,21 +13,9 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
 from django.urls import path
-
-from user_control import views as user_views
-from stonks import views as stonk_views
-
-
+from stonks import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('user_auth/', user_views.sign_up),
-    path('user_logout/', user_views.user_logout),
-    path('user_authenticate/', user_views.user_authenticate),
-
-    path('', stonk_views.index, name='index'),
-
-
+    path('', index),
 ]

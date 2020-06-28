@@ -2,25 +2,97 @@
 {% load static %}
 
 {% block content %}
-<script src="{% static 'css/signUp.css' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'css/sign_up.css' %}"/>
+
 
 <div class="card login_signup_card">
-    <div class="card-content">
-      <p>wallet.io</p>
-    </div>
-    <div class="card-tabs">
-      <ul class="tabs tabs-fixed-width">
-        <li class="tab"><a class="active" href="#sign_in">Login</a></li>
-        <li class="tab"><a  href="#sign_up">Cadastro</a></li>
-      </ul>
-    </div>
-    <div class="card-content grey lighten-4">
-      <div id="sign_in">Test 1</div>
-      <div id="sign_up">
-        {{ form.as_p }}
-      </div>
-    </div>
+  <div class="card-content">
+    <p>wallet.io</p>
   </div>
+  <div class="card-tabs">
+      <ul class="tabs tabs-fixed-width">
+      <li class="tab"><a class="active" href="#sign_in">Login</a></li>
+      <li class="tab"><a  href="#sign_up">Cadastro</a></li>
+    </ul>
+  </div>
+  <div class="card-content grey lighten-4">
+    <!-- TAB DE LOGIN -->
+    <div id="sign_in">
+      <form action="/user_authenticate/" method="POST">
+        {{ login_form.non_field_errors }}
+        {% csrf_token %}
+        <div class="row">
+          <div class="input-field">
+            {{ login_form.email }}
+            <label for="{{login_form.email.id}}">{{login_form.email.label}}</label>
+          </div>
+          {{ login_form.email.errors }}
+
+        </div>
+        <div class="row">
+          <div class="input-field">
+            {{ login_form.password }}
+            <label for="{{login_form.password.id}}">{{login_form.password.label}}</label>
+          </div>
+          {{ login_form.password.errors }}
+
+        </div>
+
+        <button class="btn waves-effect waves-light" type="submit" name="action">
+          Enviar
+        </button>
+
+      </form>
+    </div>
+    <!-- FIM TAB DE LOGIN -->
+
+    <!-- TAB DE CADASTRO -->
+    <div id="sign_up">
+      <form action="/user_auth/" method='post'>
+        {{ signup_form.non_field_errors }}
+        {% csrf_token %}
+        <div class="row">
+          <div class="input-field">
+            {{ signup_form.first_name.errors }}
+            {{ signup_form.first_name }}
+            <label for="{{signup_form.first_name.id}}">{{signup_form.first_name.label}}</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field">
+            {{ signup_form.email }}
+            <label for="{{signup_form.email.id}}">{{signup_form.email.label}}</label>
+          </div>
+          {{ signup_form.email.errors }}
+
+        </div>
+        <div class="row">
+          <div class="input-field">
+            {{ signup_form.password1 }}
+            <label for="{{signup_form.password1.id}}">{{signup_form.password1.label}}</label>
+          </div>
+          {{ signup_form.password1.errors }}
+
+        </div>
+        <div class="row">
+          <div class="input-field">
+            {{ signup_form.password2 }}
+            <label for="{{signup_form.password2.id}}">{{signup_form.password2.label}}</label>
+          </div>
+          {{ signup_form.password2.errors }}
+
+        </div>
+
+        <button class="btn waves-effect waves-light" type="submit" name="action">
+          Enviar
+        </button>
+
+      </form>
+    </div>
+    <!-- FIM DA TAB DE CADASTRO -->
+
+  </div>
+</div>
 
 <script src="{% static 'js/signUp.js' %}"></script>
 

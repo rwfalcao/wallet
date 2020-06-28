@@ -2,8 +2,12 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from user_control.models import Pessoa
 
 class SignUpForm(UserCreationForm):
+    '''
+        Form para cadastro de novos usuários.
+    '''
     first_name = forms.CharField(
         max_length=30,
         required=False,
@@ -17,4 +21,33 @@ class SignUpForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'email', 'password1', 'password2', )
+        fields = ('first_name', 'email', 'password1', 'password2', )
+
+    
+    def save(self, commit=True):
+        instance = super(SignUpForm, self).save(commit=False)
+        instance.username = self.cleaned_data['email']
+        instance.save()
+
+        Pessoa.objects.create(
+            user=instance,
+            first_name=self.cleaned_data['first_name'],
+            email=self.cleaned_data['email']
+        )
+        return instance
+
+
+class LoginForm(forms.Form):
+    '''
+        Form para login de usuários.
+    '''
+
+    email = forms.EmailField(
+        max_length=254,
+        help_text='E-mail'
+        )
+
+    password = forms.CharField(
+        widget=forms.PasswordInput
+        )
+
