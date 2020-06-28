@@ -1,7 +1,75 @@
 {% extends super_template %}
 {% load static %}
+{% load humanize %}
 
 {% block content %}
-<h1>main page!</h1>
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+
+    <div class="row wallet-balance-row">
+        <div class="card-panel teal carteira-card">
+            <div class="card-content white-text">
+                <h5 class="card-title wallet-title">Carteira</h5>
+                <p class='wallet-balance'>
+                    U$ {{ wallet.balance|floatformat:2|intcomma }}
+                </p>
+            </div>
+        </div>
+        <div class="card blue-grey darken-1 novos-ativos-card">
+                <div class="card-content white-text">
+                    <span class="card-title">Informe um Valor para ver ativos</span>
+                
+                </div>
+                <div class="card-action">
+                    <form class="novo-ativo-form" action="/available_symbols_list/" method='POST'>
+                        {% csrf_token %}
+                        <div class="input-field">
+                            <input placeholder="U$ 0,00" id="money-value" name="money-value" type="text" class="validate">
+                            <label for="money-value">Valor</label>
+                            </div>
+                        <button class="btn waves-effect waves-light" type="submit" name="action">Confirmar
+                            <i class="material-icons right">send</i>
+                        </button>
+                    </form>
+
+                </div>
+        </div>
+
+        <!-- <a href="/available_symbols_list/" class="waves-effect waves-light btn">Ver novos ativos</a> -->
+        
+    </div>
+
+    <div class="ativos-container">
+        {% if purchases %}
+        <span class="empty-actives">Últimas Compras</span>
+        <table>
+            <thead>
+              <tr>
+                  <th>Symbol</th>
+                  <th>Name</th>
+                  <th>Date</th>
+                  <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for purchase in purchases %}
+                    <tr>
+                        <td>{{purchase.symbol.symbol}}</td>
+                        <td>{{purchase.symbol.name}}</td>
+                        <td>{{purchase.date_time|date:"d/m/Y H:i"}}</td>
+                        <td>U$ {{purchase.amount|floatformat:2|intcomma}}</td>
+
+                    </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+        {% else %}
+            <span class="empty-actives">Nenhum ativo ainda!</span>
+        {% endif %}
+        
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha256-Kg2zTcFO9LXOc7IwcBx1YeUBJmekycsnTsq2RuFHSZU=" crossorigin="anonymous"></script>
+    <script src="{% static 'js/index.js' %}"></script>
+
 
 {% endblock %}

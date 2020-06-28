@@ -22,5 +22,9 @@ class Pessoa(models.Model):
     
     def __str__(self):
         return '%s (%s)' % (self.first_name, self.email)
+
+
+    def get_wallet(self):
+        return self.userwallet_set.filter().first()
     
 

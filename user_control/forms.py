@@ -3,6 +3,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from user_control.models import Pessoa
+from stonks.models import UserWallet
 
 class SignUpForm(UserCreationForm):
     '''
@@ -29,10 +30,14 @@ class SignUpForm(UserCreationForm):
         instance.username = self.cleaned_data['email']
         instance.save()
 
-        Pessoa.objects.create(
+        pessoa = Pessoa.objects.create(
             user=instance,
             first_name=self.cleaned_data['first_name'],
             email=self.cleaned_data['email']
+        )
+        UserWallet.objects.create(
+            owner=pessoa,
+            balance=0
         )
         return instance
 

@@ -7,6 +7,7 @@ from django.shortcuts import redirect
 def sign_up(request):
     if request.method == 'POST':
         signup_form = SignUpForm(request.POST)
+        login_form = LoginForm()
         if signup_form.is_valid():
             signup_form.save()
             username = signup_form.cleaned_data.get('email')
@@ -37,7 +38,7 @@ def user_authenticate(request):
             username=login_form.cleaned_data['email'], 
             password=login_form.cleaned_data['password']
             )
-    login(request, user)
+        login(request, user)
     return redirect('/')
 
 

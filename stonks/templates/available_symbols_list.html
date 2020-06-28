@@ -1,0 +1,89 @@
+{% extends super_template %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/symbols_list.css' %}">
+
+    <div class="symbol-list-container">
+        {% for symbol in symbols %}
+            <div class="card {% if symbol.get_latest_closing_information.close < value_entered %}match z-depth-5{% else %}unmatch{% endif %}">
+                {% if symbol.get_latest_closing_information.close < value_entered %}
+                <span class="badge">Nossa Sugestão</span>
+                {% else %}
+                {% endif %}
+                <div class="card-image symbol-info-cards">
+                    {% for daily_update in symbol.get_latest_daily_information reversed %}
+                        <div class="info-card">
+                            <div class="info-card-date">
+                                {{daily_update.date.day}}/{{daily_update.date.month}}/{{daily_update.date.year}}
+                            </div>
+                            <div class="info-card-value">
+                                <span class="info-card-label">
+                                    Open
+                                </span>
+                                <span class="infor-card-num">
+                                    U$ {{daily_update.open_price|floatformat:2}}
+                                </span>
+                            </div>
+                            <div class="info-card-value">
+                                <span class="info-card-label">
+                                    High
+                                </span>
+                                <span class="infor-card-num">
+                                    U$ {{daily_update.high|floatformat:2}}
+                                </span>
+                            </div>
+                            <div class="info-card-value">
+                                <span class="info-card-label">
+                                    Low
+                                </span>
+                                <span class="infor-card-num">
+                                    U$ {{daily_update.low|floatformat:2}}
+                                </span>
+                            </div>
+                            <div class="info-card-value close-value">
+                                <span class="info-card-label">
+                                    Close
+                                </span>
+                                <span class="infor-card-num">
+                                    {{daily_update.close|floatformat:2}}
+                                </span>
+                                {% if daily_update.ended_higher %}
+                                    <i class="material-icons" style="color: #00bfa5;">arrow_drop_up</i>
+                                {% else %}
+                                    <i class="material-icons" style='color: #ff3d00'>arrow_drop_down</i>
+                                {% endif %}
+
+                            </div>
+                            
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="card-content symbol-content">
+                    <div class="symbol-title">
+                        <span class="card-title activator grey-text text-darken-4">
+                            {{ symbol.symbol }}
+                        </span>
+                        <p>
+                            {{ symbol.name }}
+    
+                        </p>
+                    </div>
+                    <form action="/buy_symbol/{{symbol.pk}}/" method="POST">
+                        {% csrf_token %}
+                        <button class="btn waves-effect waves-light" type="submit" name="action">
+                            Adquirir
+                            <i class="material-icons left">attach_money</i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+        {% endfor %}
+    </div>
+
+
+
+
+{% endblock %}

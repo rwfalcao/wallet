@@ -28,6 +28,8 @@ urlpatterns = [
     path('user_authenticate/', user_views.user_authenticate),
 
     path('', stonk_views.index, name='index'),
+    path('available_symbols_list/', stonk_views.available_symbols_list, name='available_symbols_list'),
+    path('buy_symbol/<int:pk>/', stonk_views.buy_symbol, name='buy_symbol'),
 
 
 ]

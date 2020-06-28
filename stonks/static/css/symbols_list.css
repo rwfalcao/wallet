@@ -1,0 +1,47 @@
+.card-image.symbol-info-cards {
+    display: flex;
+    justify-content: space-around;
+}
+.card-image.symbol-info-cards {
+    display: flex;
+    justify-content: space-around;
+    padding: 25px 0 0 0;
+}
+
+.info-card-date {
+    font-size: 1.5em;
+}
+
+.info-card-value.close-value {
+    display: flex;
+    align-items: center;
+    font-size: 1.5em;
+}
+
+.info-card-label{
+    margin-right: 5px;
+}
+
+.info-card-value.close-value .material-icons {
+    font-size: 2em
+}
+.infor-card-num{
+    font-weight: bold;
+}
+span.badge {
+    font-weight: 400;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #26a69a;
+    border-radius: 2px;
+    margin: 10px;
+}
+.symbol-content.card-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.symbol-title {
+    font-size: 1.5em !important;
+    font-weight: bold;
+}
