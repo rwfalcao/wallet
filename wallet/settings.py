@@ -25,7 +25,7 @@ SECRET_KEY = 'lb-zwshkd03t+$!*f!11o1195521+gl#h$^-9u%80$tc)_vc79'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'walletio.herokuapp.com']
 
 # Application definition
 
