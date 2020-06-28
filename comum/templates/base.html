@@ -13,21 +13,18 @@
 
     <!-- Compiled and minified JavaScript -->
     <script src="{% static 'js/materialize.min.js' %}"></script>
-
-
-    
-   
-
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
 
     <title>wallet.io!</title>
 </head>
 <body>
     <!-- nav -->
     <nav>
-        <div class="nav-wrapper indigo darken-3">
+        <div class="nav-wrapper indigo darken-3 main-nav">
             <a href="#" class="brand-logo">wallet.io</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 {% if request.user.is_authenticated %}
+                    <li class="user_auth_welcome">Olá, {{ request.user.pessoa.first_name }}</li>
                     <li><a href="/user_logout/">Logout</a></li>
                 {% else %}
                     <li><a href="/user_auth/">Login</a></li>
