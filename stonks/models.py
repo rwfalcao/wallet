@@ -133,7 +133,7 @@ class DailySymbolInformation(models.Model):
         on_delete=models.CASCADE
         )
 
-    last_refreshed = models.DateField(
+    last_refreshed = models.DateTimeField(
         'Last Refreshed',
         )
 
